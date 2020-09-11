@@ -1,44 +1,33 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Home.module.css";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../Context/Authentication";
-import { getBoards, sudoBoardData } from "../../Functions/Functions";
+import { getBoards } from "../../Funct_Reuse/Functions";
 import Loader from "../Modals/Loader/Loader";
 
-
-const Home = () => {
-  const { user } = useContext(AuthContext);
+function Home() {
+  
   const [loading, setLoading] = useState(true);
   const [boardData, setBoardData] = useState([]);
 
   useEffect(() => {
-    //Function is defined in Function
-    if (user) {
-      getBoards(user.email)
-        .then((boardData) => {
-          setBoardData(boardData);
-          setLoading(false);
-        })
-        .catch(() => {
-          setBoardData([]);
-        })
-    }
-    else {
-      setBoardData(sudoBoardData);
-      setLoading(false);
-    }
-  }, [user]);
+    //Function is defined in Function.js
+    getBoards()
+      .then((boardData) => {
+        setBoardData(boardData);
+        setLoading(false);
+      })
+      .catch(() => {
+        setBoardData([]);
+      });
+  }, []);
 
   return (
     <>
-      {loading ?
-        <Loader /> :
+      {loading ? (
+        <Loader />
+      ) : (
         <>
-          {
-            user ?
-              < p className={styles.para}>Your Boards</p> :
-              <p className={styles.para}>Sample Board</p>
-          }
+          <p className={styles.para}>Boards</p>
           {boardData.length === 0 && (
             <p className={styles.emptyMsg}>
               You haven't created any boards.Kindly click on the 'Create Board'
@@ -61,23 +50,13 @@ const Home = () => {
                 key={x.id}
               >
                 {x.boardName}
+                <div className={styles.txt}></div>
               </Link>
             ))}
           </div>
-
-          {
-            user ?
-              null :
-              <p className={styles.para}>
-                <Link style={{ color: 'blueviolet' }} to="/login">Login </Link>
-                 to access all features
-              </p>
-          }
-
         </>
-      }
+      )}
     </>
-  )
+  );
 }
-
 export default Home;
