@@ -6,6 +6,7 @@ import * as shortid from 'shortid';
 import IndividualCard from '../Modals/IndividualCard/IndividualCard';
 import CreateCard from '../Modals/CreateCard/CreateCard';
 import CreateColumnModal from '../Modals/CreateColumnModal/CreateColumnModal';
+import { Redirect } from 'react-router-dom';
 
 const Board = (props) => {
     const [loading, setLoading] = useState(true);
@@ -168,8 +169,12 @@ const Board = (props) => {
             alert(error)
         }
     }
+
+
     return (
         <>
+            {(props.location.state) ? null : <Redirect to={'/board'} />}
+
             {loading ? (
                 <Loader />
             ) :

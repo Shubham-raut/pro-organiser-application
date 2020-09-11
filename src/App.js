@@ -18,10 +18,10 @@ function App() {
         <Switch>
           <Route exact path="/" component={Home} />
           <PrivateRoute path="/createboard" component={CreateBoard} />
-          <PrivateRoute path="/board/:boardid" component={Board} />
+          <Route path="/board/:boardid" component={Board} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
-          {/* <Route exact path="*" component={Home} /> */}
+          <Route exact path="*" component={Home} />
         </Switch>
       </BrowserRouter>
     </Authentication>
