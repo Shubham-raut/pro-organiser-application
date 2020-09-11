@@ -1,104 +1,101 @@
 import React, { useState } from 'react';
 import styles from './IndividualCard.module.css';
-import TeamRetreival from '../TeamRetreival/TeamRetreival';
 import { convertDate } from '../../../Functions/Functions';
 import { CardDetailModal } from '../CardDetailModal/CardDetailModal';
-
-
+import TeamRetreival from '../TeamRetreival/TeamRetreival';
 
 function IndividualCard({ card, board, column, handleEdit, handleArchive }) {
 
+    const [cardDetailModal, setCardDetailModal] = useState(false);
+    const members = card.teamMembers.map(name => <TeamRetreival name={name} key={name} />);
+    const date = new Date(card.date);
+    const dueDate = convertDate(date);
 
-  const [cardDetailModal, setCardDetailModal] = useState(false);
-  const members = card.teamMembers.map(name => <TeamRetreival name={name} key={name} />);
-  const date = new Date(card.date);
-  const dueDate = convertDate(date);
+    function cardEditHandler() {
+        setCardDetailModal(false);
+        handleEdit();
 
-  function cardEditHandler() {
-    setCardDetailModal(false);
-    handleEdit();
+    }
 
-  }
+    function cardArchiveHandler() {
+        setCardDetailModal(false);
+        handleArchive();
+    }
+    const detailsModal = (
 
-  function cardArchiveHandler() {
-    setCardDetailModal(false);
-    handleArchive();
-  }
-  const detailsModal = (
+        <CardDetailModal>
 
-    <CardDetailModal>
-
-      <div className={styles.modalHeader}>
-        <div className={styles.title}>
-          {card.title}
-          <div className={styles.meta}>
-            in <span>{board}</span>
-          </div>
-        </div>
-        <div className={styles.btnGroup}>
-          <button className={styles.editBtn} onClick={cardEditHandler}>
-            Edit
+            <div className={styles.modalHeader}>
+                <div className={styles.title}>
+                    {card.title}
+                    <div className={styles.meta}>
+                        in <span>{board}</span>
+                    </div>
+                </div>
+                <div className={styles.btnGroup}>
+                    <button className={styles.editBtn} onClick={cardEditHandler}>
+                        Edit
           </button>
-          <button className={styles.archBtn} onClick={cardArchiveHandler}>
-            Archive
+                    <button className={styles.archBtn} onClick={cardArchiveHandler}>
+                        Archive
           </button>
+                </div>
+                <div className={styles.modalClose} onClick={() => setCardDetailModal(false)}>
+                    &times;
         </div>
-        <div className={styles.modalClose} onClick={() => setCardDetailModal(false)}>
-          &times;
-        </div>
-      </div>
-      <div className={styles.modalBody}>
-        <div className={styles.det}>
-          <header>Description</header>
-          <div>{card.description}</div>
-        </div>
-        <div className={styles.det}>
-          <header>Members</header>
-          <div className={styles.detTeam}>{members}</div>
-        </div>
-        <div className={styles.det}>
-          <header>Due Date</header>
-          <div>{dueDate}</div>
-        </div>
-      </div>
+            </div>
+            <div className={styles.modalBody}>
+                <div className={styles.det}>
+                    <header>Description</header>
+                    <div>{card.description}</div>
+                </div>
+                <div className={styles.det}>
+                    <header>Members</header>
+                    <div className={styles.detTeam}>{members}</div>
+                </div>
+                <div className={styles.det}>
+                    <header>Due Date</header>
+                    <div>{dueDate}</div>
+                </div>
+            </div>
 
-    </CardDetailModal>
+        </CardDetailModal>
 
-  );
-  //Function to call Drag Start of Card
+    );
+    //Function to call Drag Start of Card
 
-  function dragStart(event, card) {
-    event.dataTransfer.setData("card", JSON.stringify(card));
-    event.dataTransfer.setData("columnFrom", JSON.stringify(column))
-  }
-  return (
-    <>
+    function dragStart(event, card) {
+        event.dataTransfer.setData("card", JSON.stringify(card));
+        event.dataTransfer.setData("columnFrom", JSON.stringify(column))
+    }
+    return (
+        <>
 
-      <li
-        draggable="true"
-        onDragStart={(e) => dragStart(e, card)}
-        className={styles.item}
-        onClick={() => setCardDetailModal(true)}
-      >
-        <div className={styles.text}>{card.title}</div>
-        <div className={styles.actions}>
-          <div className={styles.actionBtn}>
-            <i
-              className="material-icons"
-              style={{ fontSize: '30px', cursor: 'move' }}
+            <li
+                draggable="true"
+                onDragStart={(e) => dragStart(e, card)}
+                className={styles.item}
+                onClick={() => setCardDetailModal(true)}
             >
-              list
+                <div className={styles.text}>{card.title}</div>
+                <div className={styles.actions}>
+                    <div className={styles.actionBtn}>
+                        <i
+                            className="material-icons"
+                            style={{ fontSize: '30px', cursor: 'move' }}
+                        >
+                            list
             </i>
 
-          </div>
-          <div className={styles.team}>{members}</div>
-        </div>
-      </li>
+                    </div>
+                    <div className={styles.team}>{members}</div>
+                </div>
+            </li>
 
-      {cardDetailModal && detailsModal}
+            {cardDetailModal && detailsModal}
 
-    </>
-  )
+        </>
+    )
 }
 
 export default IndividualCard
