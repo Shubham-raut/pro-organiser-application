@@ -1,29 +1,29 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Authentication from './Context/Authentication';
+import './App.css';
 import Header from './Components/Header/Header';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './Pages/Home/Home';
+import Create from './Pages/CreateBoard/CreateBoard';
+import Board from './Pages/Board/Board';
 import Login from './Pages/Login/Login';
 import Signup from './Pages/Signup/Signup';
-import Board from './Pages/Board/Board';
-import './App.css';
+import Authentication from './Context/Authentication';
 import PrivateRoute from './PrivateRoute';
-import CreateBoard from './Pages/CreateBoard/CreateBoard';
 
 function App() {
   return (
     <Authentication>
-      <BrowserRouter>
+      <Router>
         <Header />
         <Switch>
           <PrivateRoute exact path="/" component={Home} />
-          <PrivateRoute path="/createboard" component={CreateBoard} />
+          <PrivateRoute path="/createboard" component={Create} />
           <PrivateRoute path="/board/:boardid" component={Board} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
-          {/* <Route exact path="*" component={Home} /> */}
+          <Route exact path="*" component={Home} />
         </Switch>
-      </BrowserRouter>
+      </Router>
     </Authentication>
   );
 }
