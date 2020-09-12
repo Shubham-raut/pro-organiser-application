@@ -41,7 +41,6 @@ const CreateBoard = (props) => {
                 });
         }
         else {
-            alert('Please login first to access all fearures');
             history.replace('/');
         }
     };

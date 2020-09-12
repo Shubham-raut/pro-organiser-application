@@ -40,10 +40,7 @@ const Home = () => {
               <p className={styles.para}>Sample Board</p>
           }
           {boardData.length === 0 && (
-            <p className={styles.emptyMsg}>
-              You haven't created any boards.Kindly click on the 'Create Board'
-              button in the navigation bar to create a board.
-            </p>
+            <p className={styles.emptyMsg}>You haven't created any boards. Kindly click on the 'Create Board' button in the navigation bar to create a board.</p>
           )}
 
           <div className={styles.ctrBoard}>

@@ -211,7 +211,7 @@ const Board = (props) => {
                                                     />)
                                             ))}
                                         </ul>
-                                        <footer><button onClick={() => openAddCard(x)} className={styles.add}>Add a Card</button></footer>
+                                        <footer><button onClick={() => openAddCard(x)} className={styles.add}>Add a card</button></footer>
                                     </div>
 
                                 ))}
