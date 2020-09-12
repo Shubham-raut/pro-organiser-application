@@ -64,7 +64,7 @@ function CreateCard(props) {
                         </div>
                         <div className={styles.cardTitle}>
                             <p id={styles.ptag}>Enter a title for your task</p>
-                            <input required value={cardTitle} onChange={(e) => setCardTitle(e.target.value)} type="text" id={styles.title} placeholder="eg.Add a new icon"></input>
+                            <input required value={cardTitle} onChange={(e) => setCardTitle(e.target.value)} type="text" className={styles.title} id='title' placeholder="eg.Add a new icon"></input>
                         </div>
                         <div className={styles.cardMembers}>
                             <p id={styles.ptag}>Choose members for this task,(select multiple if needed)</p>
@@ -85,16 +85,16 @@ function CreateCard(props) {
                         </div>
                         <div className={styles.cardDesc}>
                             <p id={styles.ptag}>Add the description for your task</p>
-                            <input value={cardDesc} required onChange={(e) => setCardDesc(e.target.value)} type="text" id={styles.description} placeholder="eg.Add your description here"></input>
+                            <input value={cardDesc} required onChange={(e) => setCardDesc(e.target.value)} type="text" className={styles.description} id='description' placeholder="eg.Add your description here"></input>
                         </div>
                         <div className={styles.cardDate}>
                             <p id={styles.ptag}>Select the due date for this task</p>
-                            <input value={cardDueDate} required onChange={dueDate} type="date" id={styles.due_date}></input>
+                            <input value={cardDueDate} required onChange={dueDate} type="date" className={styles.due_date} id='due_date'></input>
                         </div>
                         <div className={styles.cardBtn}>
                             {(props.isAdd) ?
-                                (<button type="submit" id={styles.CreateCard}>Add Card</button>)
-                                : (<button onClick={(e) => editCardHandler(e)} id={styles.CreateCard}>Edit Card</button>)}
+                                (<button type="submit" className={styles.CreateCard} id='CreateCard'>Add Card</button>)
+                                : (<button onClick={(e) => editCardHandler(e)} className={styles.CreateCard} id='CreateCard'>Edit</button>)}
                         </div>
                     </form >
                 </>}
