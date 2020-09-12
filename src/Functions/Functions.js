@@ -21,10 +21,12 @@ export const addColumn = async (column) => {
 };
 //---------------------------------------------------------------------------------------------------
 //Function to get all getBoards Details from FireStore(Like API CALL)
-export const getBoards = async () => {
+export const getBoards = async (email) => {
   try {
-    const snapshot = await db.collection("boardDetails").get();
-    const boards = snapshot.docs.map((x) =>({ ...x.data(), id: x.id }));
+    const snapshot = await db.collection("boardDetails")
+      .where('user', '==', email)
+      .get();
+    const boards = snapshot.docs.map((x) => ({ ...x.data(), id: x.id }));
     return boards;
   } catch (error) {
     return [];
@@ -58,13 +60,11 @@ export const getColumns = async (boardId) => {
 //UPDATE FUNCTIONS
 //
 export const updateColumn = async (id, column) => {
-  try 
-  {
+  try {
     await db.collection('columnDetails').doc(id).update(column);
     return true;
-  } 
-  catch (error)
-  {
+  }
+  catch (error) {
     return error;
   }
 };
@@ -81,16 +81,56 @@ export const deleteBoard = async (id) => {
 
 //Function to delete Column from FireStore Database
 
-export const deleteColumn=async(id)=>{
-    try{
-        await db.collection('columnDetails').doc(id).delete();
-        return true;
-    }
-    catch(error){
-        return error;
+export const deleteColumn = async (id) => {
+  try {
+    await db.collection('columnDetails').doc(id).delete();
+    return true;
+  }
+  catch (error) {
+    return error;
 
-    }
+  }
 }
 //
 
 export const deepCopy = obj => JSON.parse(JSON.stringify(obj));
+
+const months = [
+  'January',
+  'Febuary',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+
+export const convertDate = date => {
+  return `${date.getDate()} ${months[date.getMonth()]}, ${date.getFullYear()}`;
+};
+
+export let sudoBoardData = [
+  {
+    "boardType": "Capstone Board",
+    "teamMembers": [
+      "Shubham",
+      "Aamir",
+      "Karishma",
+      "Shweta",
+      "Arpita",
+      "Sanyogita"
+    ],
+    "user": "shubham@raut.com",
+    "boardName": "Agile Sprint Board",
+    "id": "sudoId"
+  },
+];
+
+
+
+export let sudoUser = 'x';
