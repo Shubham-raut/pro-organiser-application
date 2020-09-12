@@ -36,8 +36,8 @@ const Home = () => {
         <>
           {
             user ?
-              < p className={styles.para}>Your Boards</p> :
-              <p className={styles.para}>Sample Board</p>
+              < p className={styles.para}>Boards</p> :
+              <p className={styles.para}>Boards</p>
           }
           {boardData.length === 0 && (
             <p className={styles.emptyMsg}>You haven't created any boards. Kindly click on the 'Create Board' button in the navigation bar to create a board.</p>
